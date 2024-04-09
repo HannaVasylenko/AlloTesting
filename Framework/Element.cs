@@ -11,39 +11,20 @@ namespace Framework
     {
         public IWebElement element { get; set; }
 
-        public Element(IWebElement element)
-        {
-            this.element = element;
-        }
+        public Element(IWebElement element) => this.element = element;
 
-        public void Click()
-        {
-            element.Click();
-        }
+        public void Click() => element.Click();
 
-        public void Clear()
-        {
-            element.Clear();
-        }
+        public void Clear() => element.Clear();
 
-        public bool IsDisplayed()
-        {
-            return element.Displayed;
-        }
+        public bool IsDisplayed() => element.Displayed;
 
-        public void SendText(string text)
-        {
-            element.SendKeys(text);
-        }
+        public void SendText(string text) => element.SendKeys(text);
 
-        public Element FindElementByXpath(string xpath)
-        {
-            return new Element(element.FindElement(By.XPath(xpath))); 
-        }
+        public Element FindElementByXpath(string xpath) => new(element.FindElement(By.XPath(xpath)));
 
-        public string GetText()
-        {
-            return element.Text;
-        }
+        public string GetText() => element.Text;
+        
+        public string GetAttribute(string attribute) => element.GetAttribute(attribute);
     }
 }
