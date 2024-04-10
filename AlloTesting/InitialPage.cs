@@ -1,6 +1,7 @@
 ﻿using AlloTesting;
 using Framework;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,11 @@ namespace AlloPageObjects
 
         private Element txtSearchField => driver.FindElementByXpath("//input[@id='search-form__input']");
         
-        private List<Element> productList => driver.FindElementsByXpath("//div[@class='products-layout__container products-layout--grid']/div");
+        private List<Element> productList => driver.FindElementsByXpath("//div[@data-products-type='top']//div[@class='h-pc']");
 
         public void InputDataInSearchField (string text)
         {
+            Element txtSearchField = driver.FindElementByXpath("//input[@id='search-form__input']");
             txtSearchField.Click();
             txtSearchField.SendText(text);
             txtSearchField.SendText(Keys.Enter);
@@ -27,5 +29,41 @@ namespace AlloPageObjects
         public List<string> GetProductNames() => driver.FindElementsByXpath("//div[@class='products-layout__container products-layout--grid']//div[@class='product-card__content']/a")
                     .ToList()
                     .ConvertAll(e => e.GetAttribute("title"));
+
+        public void ClickOnBtnAddMoreProducts()
+        {
+            Element btnAddMoreProducts = driver.FindElementByXpath("//div[@data-products-type='top']//button[@class='h-pl__more-button']");
+            btnAddMoreProducts.Click();
+        }
+
+        public void InputDataInSubscriptionEmailField(string email)
+        {
+            Element txtEmail = driver.FindElementByXpath("//input[@name='email']");
+            txtEmail.Click();
+            txtEmail.SendText(email);
+            txtSearchField.SendText(Keys.Enter);
+        }
+
+        public string GetEmailErrorMessage() => driver.FindElementByXpath("//span[@class='a-input__message base-message is-error']").GetText();
+
+        public void GoToSocialMediaPages(string platform) => driver.FindElementByXpath($"//a[@aria-label='{platform}']").Click();
+
+        public string GetFacebookAccountName()
+        {
+            if (driver.IsElementExists(By.XPath("//div[@aria-label='Close']")))
+            {
+                driver.FindElementByXpath("//div[@aria-label='Close']").Click();
+            }
+            return driver.FindElementByXpath("//h1").GetText().Replace(" ", "");
+        }
+
+        public string GetInstagramAccountName()
+        {
+            if (driver.IsElementExists(By.XPath("//div[text()='Reload page']")))
+            {
+                driver.FindElementByXpath("//div[text()='Reload page']").Click();
+            }
+            return driver.FindElementByXpath("//h2").GetText();
+        }
     }
 }

@@ -27,5 +27,36 @@ namespace AlloTests
                 StringAssert.Contains(productName.ToLower(), productTitle.ToLower(), $"Product name {productName} is missing from the product title");
             }
         }
+
+        [Test]
+        public void VerifyWebsiteSubscription()
+        {
+            var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
+            string emailErrorMessage = config["emailErrorMessage"];
+
+            InitialPage initialPage = new InitialPage(driver);
+            initialPage.InputDataInSubscriptionEmailField(config["email"]);
+            StringAssert.AreEqualIgnoringCase(emailErrorMessage, initialPage.GetEmailErrorMessage(), $"The error message {emailErrorMessage} is not displayed");
+        }
+
+        [Test]
+        public void VerifyTransitionToSocialMediaPages()
+        {
+            var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
+            string websiteNameEng = config["websiteNameEng"];
+            string websiteNameUkr = config["websiteNameUkr"];
+
+
+            InitialPage initialPage = new InitialPage(driver);
+            initialPage.GoToSocialMediaPages("facebook");
+            driver.SwitchToTab(1);
+            string facebook = initialPage.GetFacebookAccountName();
+            driver.SwitchToTab(0);
+            initialPage.GoToSocialMediaPages("instagram");
+            driver.SwitchToTab(2);
+            string instagram = initialPage.GetInstagramAccountName();
+            StringAssert.AreEqualIgnoringCase(websiteNameUkr, facebook, "A different page is displayed");
+            StringAssert.AreEqualIgnoringCase(websiteNameEng, instagram, "A different page is displayed");
+        }
     }
 }

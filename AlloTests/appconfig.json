@@ -1,3 +1,7 @@
 {
-  "productName": "iphone 14"
+  "productName": "iphone 14",
+  "emailErrorMessage": "Введено некоректний email",
+  "email": "email",
+  "websiteNameEng": "allo",
+  "websiteNameUkr": "алло"
 }
