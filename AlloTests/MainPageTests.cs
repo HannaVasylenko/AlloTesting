@@ -36,6 +36,7 @@ namespace AlloTests
 
             InitialPage initialPage = new InitialPage(driver);
             initialPage.InputDataInSubscriptionEmailField(config["email"]);
+            
             StringAssert.AreEqualIgnoringCase(emailErrorMessage, initialPage.GetEmailErrorMessage(), $"The error message {emailErrorMessage} is not displayed");
         }
 
@@ -55,8 +56,22 @@ namespace AlloTests
             initialPage.GoToSocialMediaPages("instagram");
             driver.SwitchToTab(2);
             string instagram = initialPage.GetInstagramAccountName();
+            
             StringAssert.AreEqualIgnoringCase(websiteNameUkr, facebook, "A different page is displayed");
             StringAssert.AreEqualIgnoringCase(websiteNameEng, instagram, "A different page is displayed");
+        }
+
+        [Test]
+        public void VerifySelectCategory()
+        {
+            var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
+            string categoryName = config["categoryName"];
+
+            InitialPage initialPage = new InitialPage(driver);
+            initialPage.SelectCategory(config["categoryName"]);
+            SmartphonesAndPhonesPage smartphonesAndPhonesPage = new SmartphonesAndPhonesPage(driver);
+            
+            Assert.That(smartphonesAndPhonesPage.GetPageTitle(), Is.EqualTo(categoryName), "Another page is displayed");
         }
     }
 }

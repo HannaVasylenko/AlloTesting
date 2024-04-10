@@ -65,5 +65,7 @@ namespace AlloPageObjects
             }
             return driver.FindElementByXpath("//h2").GetText();
         }
+
+        public void SelectCategory(string category) => driver.FindElementByXpath($"//li[@class='mm__item']/a[contains(normalize-space(), '{category}')]").Click();
     }
 }
