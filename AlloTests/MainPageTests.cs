@@ -73,5 +73,19 @@ namespace AlloTests
             
             Assert.That(smartphonesAndPhonesPage.GetPageTitle(), Is.EqualTo(categoryName), "Another page is displayed");
         }
+
+        [Test]
+        public void VerifySelectLocation()
+        {
+            var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
+            string cityName = config["city"];
+
+            InitialPage initialPage = new InitialPage(driver);
+            initialPage.SelectLocation();
+            initialPage.InputDataInSearchLocationField(config["city"]);
+            initialPage.SelectLocationVariant(config["city"]);
+
+            Assert.That(initialPage.GetLocationOfWebsite(), Is.EqualTo(cityName), "Another city is selected");
+        }
     }
 }

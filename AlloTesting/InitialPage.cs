@@ -30,11 +30,7 @@ namespace AlloPageObjects
                     .ToList()
                     .ConvertAll(e => e.GetAttribute("title"));
 
-        public void ClickOnBtnAddMoreProducts()
-        {
-            Element btnAddMoreProducts = driver.FindElementByXpath("//div[@data-products-type='top']//button[@class='h-pl__more-button']");
-            btnAddMoreProducts.Click();
-        }
+        public void ClickOnBtnAddMoreProducts() => driver.FindElementByXpath("//div[@data-products-type='top']//button[@class='h-pl__more-button']").Click();
 
         public void InputDataInSubscriptionEmailField(string email)
         {
@@ -67,5 +63,23 @@ namespace AlloPageObjects
         }
 
         public void SelectCategory(string category) => driver.FindElementByXpath($"//li[@class='mm__item']/a[contains(normalize-space(), '{category}')]").Click();
+
+        public void SelectLocation() => driver.FindElementByXpath("//div[@class='mh-loc']/button").Click();
+
+        public void InputDataInSearchLocationField(string location)
+        {
+            Element txtLocation = driver.FindElementByXpath("//input[@id='city']");
+            txtLocation.Click();
+            txtLocation.SendText(location);
+        }
+
+        public void SelectLocationVariant(string city) => driver.FindElementByXpath($"//li[@title='{city}']").Click();
+
+        public string GetLocationOfWebsite()
+        {
+            Element txtActualLocation = driver.FindElementByXpath("//span[@class='mh-loc__label']");
+            driver.WaitUntil(e => txtActualLocation.IsDisplayed());
+            return txtActualLocation.GetText();
+        }
     }
 }
