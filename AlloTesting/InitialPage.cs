@@ -14,8 +14,10 @@ namespace AlloPageObjects
     {
         public InitialPage(Driver driver) : base(driver) {}
 
-        private Element txtSearchField => driver.FindElementByXpath("//input[@id='search-form__input']");
-        
+        private Element txtPhoneNumber => driver.FindElementByXpath("//div[@class='a-input']");
+
+        private Element btnLoginWithEmailAndPassword => driver.FindElementByXpath("//span[contains(text(), 'Логін та пароль')]");
+
         private List<Element> productList => driver.FindElementsByXpath("//div[@data-products-type='top']//div[@class='h-pc']");
 
         public void InputDataInSearchField (string text)
@@ -37,7 +39,7 @@ namespace AlloPageObjects
             Element txtEmail = driver.FindElementByXpath("//input[@name='email']");
             txtEmail.Click();
             txtEmail.SendText(email);
-            txtSearchField.SendText(Keys.Enter);
+            txtEmail.SendText(Keys.Enter);
         }
 
         public string GetEmailErrorMessage() => driver.FindElementByXpath("//span[@class='a-input__message base-message is-error']").GetText();
@@ -80,6 +82,26 @@ namespace AlloPageObjects
             Element txtActualLocation = driver.FindElementByXpath("//span[@class='mh-loc__label']");
             driver.WaitUntil(e => txtActualLocation.IsDisplayed());
             return txtActualLocation.GetText();
+        }
+
+        public string GetLoginErrorMessage() => driver.FindElementByXpath("//span[@class='a-input__message base-message is-error']").GetText();
+
+        public void InputDataInLoginPhoneNumberField(string phoneNumber) => driver.FindElementByXpath("//input[@name='telephone']").SendText(phoneNumber);
+
+        public void ClickOnLoginBtn() => driver.FindElementByXpath("//span[contains(text(), 'Увійти')]").Click();
+        
+        public void ClickOnProfileBtn() => driver.FindElementByXpath("//button[@aria-label='Профіль']").Click();
+
+        public void ClickOnLoginWithEmailAndPasswordBtn() => driver.FindElementByXpath("//span[contains(text(), 'Логін та пароль')]").Click();
+
+        public void InputDataInLoginWithEmailAndPhoneFields(string email, string password)
+        {
+            Element txtEmail = driver.FindElementByXpath("//input[@name='phoneEmail']");
+            Element txtPassword = driver.FindElementByXpath("//input[@name='password']");
+
+            txtEmail.SendText(email);
+            txtPassword.Click();
+            txtPassword.SendText(password);
         }
     }
 }

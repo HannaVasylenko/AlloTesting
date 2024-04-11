@@ -5,5 +5,8 @@
   "websiteNameEng": "allo",
   "websiteNameUkr": "алло",
   "categoryName": "Смартфони та телефони",
-  "city": "Харків"
+  "city": "Харків",
+  "loginErrorMessage": "Будь ласка, введіть дійсний номер телефону.",
+  "phoneNumber": "000000000",
+  "password": "12345678"
 }

@@ -87,5 +87,34 @@ namespace AlloTests
 
             Assert.That(initialPage.GetLocationOfWebsite(), Is.EqualTo(cityName), "Another city is selected");
         }
+
+        [Test]
+        public void VerifyLoginByEnteringPhoneNumber()
+        {
+            var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
+            string loginErrorMessage = config["loginErrorMessage"];
+
+            InitialPage initialPage = new InitialPage(driver);
+            initialPage.ClickOnProfileBtn();
+            initialPage.InputDataInLoginPhoneNumberField(config["phoneNumber"]);
+            initialPage.ClickOnLoginBtn();
+
+            Assert.That(initialPage.GetLoginErrorMessage(), Is.EqualTo(loginErrorMessage), $"The error message {loginErrorMessage} is not displayed");
+        }
+
+        [Test]
+        public void VerifyLoginByEnteringEmailAndPassword()
+        {
+            var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
+            string loginErrorMessage = config["emailErrorMessage"];
+
+            InitialPage initialPage = new InitialPage(driver);
+            initialPage.ClickOnProfileBtn();
+            initialPage.ClickOnLoginWithEmailAndPasswordBtn();
+            initialPage.InputDataInLoginWithEmailAndPhoneFields(config["email"], config["password"]);
+            initialPage.ClickOnLoginBtn();
+
+            Assert.That(initialPage.GetLoginErrorMessage(), Is.EqualTo(loginErrorMessage), $"The error message {loginErrorMessage} is not displayed");
+        }
     }
 }
