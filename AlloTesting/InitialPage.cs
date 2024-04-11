@@ -105,5 +105,7 @@ namespace AlloPageObjects
         }
 
         public int GetQuantityOfProducts() => driver.FindElementsByXpath("//div[@data-products-type='top']/div[@class='h-products__list h-pl']/div[@class='h-pc']/div[@class='h-pc__content']/a").Count;
+
+        public void SelectFooterLink(string link) => driver.FindElementByXpath($"//a[contains(text(), '{link}')]").Click();
     }
 }

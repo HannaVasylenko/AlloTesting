@@ -8,5 +8,10 @@
   "city": "Харків",
   "loginErrorMessage": "Будь ласка, введіть дійсний номер телефону.",
   "phoneNumber": "000000000",
-  "password": "12345678"
+  "password": "12345678",
+  "vacancyVariant": "Оператор видачі",
+  "footerLink": "Вакансії",
+  "dropdownVariant": "Місто",
+  "ddlVariantXpath": "city",
+  "ddlListVariant": "Львів"
 }
