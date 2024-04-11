@@ -16,7 +16,7 @@ namespace AlloPageObjects
 
         private Element txtPhoneNumber => driver.FindElementByXpath("//div[@class='a-input']");
 
-        private Element btnLoginWithEmailAndPassword => driver.FindElementByXpath("//span[contains(text(), 'Логін та пароль')]");
+        private Element btnAddMoreProducts => driver.FindElementByXpath("//div[@data-products-type='top']//button[@class='h-pl__more-button']");
 
         private List<Element> productList => driver.FindElementsByXpath("//div[@data-products-type='top']//div[@class='h-pc']");
 
@@ -32,7 +32,7 @@ namespace AlloPageObjects
                     .ToList()
                     .ConvertAll(e => e.GetAttribute("title"));
 
-        public void ClickOnBtnAddMoreProducts() => driver.FindElementByXpath("//div[@data-products-type='top']//button[@class='h-pl__more-button']").Click();
+        public void ClickOnBtnShowMoreProducts() => driver.FindElementByXpath("//div[@data-products-type='top']//button[@class='h-pl__more-button']").Click();
 
         public void InputDataInSubscriptionEmailField(string email)
         {
@@ -103,5 +103,7 @@ namespace AlloPageObjects
             txtPassword.Click();
             txtPassword.SendText(password);
         }
+
+        public int GetQuantityOfProducts() => driver.FindElementsByXpath("//div[@data-products-type='top']/div[@class='h-products__list h-pl']/div[@class='h-pc']/div[@class='h-pc__content']/a").Count;
     }
 }

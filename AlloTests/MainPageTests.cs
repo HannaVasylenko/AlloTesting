@@ -116,5 +116,16 @@ namespace AlloTests
 
             Assert.That(initialPage.GetLoginErrorMessage(), Is.EqualTo(loginErrorMessage), $"The error message {loginErrorMessage} is not displayed");
         }
+
+        [Test]
+        public void CheckAbilityToViewMoreProductsInTopSalesLeadersSection()
+        {
+            InitialPage initialPage = new InitialPage(driver);
+            int quantityOfProducts = initialPage.GetQuantityOfProducts();
+            initialPage.ClickOnBtnShowMoreProducts();
+            int updatedQuantityOfProducts = initialPage.GetQuantityOfProducts();
+            int expectedQuantityOfProducts = quantityOfProducts + (updatedQuantityOfProducts - quantityOfProducts);
+            Assert.That(updatedQuantityOfProducts, Is.EqualTo(expectedQuantityOfProducts), "The wrong number of products is displayed");
+        }
     }
 }
