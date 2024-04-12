@@ -10,8 +10,9 @@
   "phoneNumber": "000000000",
   "password": "12345678",
   "vacancyVariant": "Оператор видачі",
-  "footerLink": "Вакансії",
+  "footerLink1": "Вакансії",
   "dropdownVariant": "Місто",
   "ddlVariantXpath": "city",
-  "ddlListVariant": "Львів"
+  "ddlListVariant": "Львів",
+  "footerLink2": "Мережа магазинів"
 }
