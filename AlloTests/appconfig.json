@@ -14,5 +14,9 @@
   "dropdownVariant": "Місто",
   "ddlVariantXpath": "city",
   "ddlListVariant": "Львів",
-  "footerLink2": "Мережа магазинів"
+  "footerLink2": "Мережа магазинів",
+  "customersDropdownVariant": "Гарантія / Повернення",
+  "warrantyAndReturnsTab": "Сервісні центри",
+  "alphabeticalСategory": "T",
+  "shopName": "TP-LINK"
 }

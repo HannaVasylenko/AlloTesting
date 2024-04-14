@@ -21,7 +21,6 @@ namespace Framework
         {
             var allWindowHandles = driver.WindowHandles;
             driver.SwitchTo().Window(allWindowHandles[index]);
-            WaitUntil(e => driver.Title != null);
         }
 
         public void SwitchToDefaultPage() => driver.SwitchTo().DefaultContent();

@@ -19,8 +19,8 @@ namespace AlloPageObjects
             Element txtShopsLocation = driver.FindElementByXpath("//input[@id='city']");
             txtShopsLocation.Click();
             txtShopsLocation.SendText(location);
-            string before = GetPageTitle();
-            driver.WaitUntil(e => !before.Equals(GetPageTitle()));
+            string defaultCity = GetPageTitle();
+            driver.WaitUntil(e => !defaultCity.Equals(GetPageTitle()));
         }
 
         public string GetPageTitle() => driver.FindElementByXpath("//h2[@class='offline-store__city']").GetText();
