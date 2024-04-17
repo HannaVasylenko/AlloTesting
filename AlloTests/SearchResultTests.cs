@@ -34,5 +34,30 @@ namespace AlloTests
                 StringAssert.Contains(brandName.ToLower(), item.Key.ToLower(), $"Brand name {brandName} is missing from the product title");
             }
         }
+
+        [Test]
+        public void VerifySearchResultByPrice()
+        {
+            var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
+            double minPrice = double.Parse(config["minPrice"]);
+            double maxPrice = double.Parse(config["maxPrice"]);
+
+
+            InitialPage initialPage = new InitialPage(driver);
+            initialPage.SelectCategory(config["categoryName"]);
+            SmartphonesAndPhonesPage smartphonesAndPhonesPage = new SmartphonesAndPhonesPage(driver);
+            smartphonesAndPhonesPage.SelectSubCategory(config["subCategory"], config["subCategotyItem"]);
+            SearchResultPage searchResultPage = new SearchResultPage(driver);
+            searchResultPage.InputFilterPrice(minPrice, maxPrice);
+            searchResultPage.SubmitSearchResult();
+
+            var searchResultDetails = searchResultPage.GetProductsTitlesAndPrices();
+
+            foreach (var item in searchResultDetails)
+            {
+                Assert.That(item.Value, Is.LessThanOrEqualTo(maxPrice), $"Product {item.Key} price {item.Value} is more than the maximum price");
+                Assert.That(item.Value, Is.GreaterThanOrEqualTo(minPrice), $"Product {item.Key} price {item.Value} is less than the minimum price");
+            }
+        }
     }
 }

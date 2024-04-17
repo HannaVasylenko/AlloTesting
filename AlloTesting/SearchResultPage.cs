@@ -59,5 +59,19 @@ namespace AlloPageObjects
             }
             return productsDetails;
         }
+
+        public void InputFilterPrice(double minPrice, double maxPrice)
+        {
+            Element txtPriceFieldMin = driver.FindElementByXpath("//form[@data-range-filter='price']/input[1]");
+            Element txtPriceFieldMax = driver.FindElementByXpath("//form[@data-range-filter='price']/input[2]");
+
+            txtPriceFieldMin.Clear();
+            txtPriceFieldMin.Click();
+            txtPriceFieldMin.SendText(minPrice.ToString());
+
+            txtPriceFieldMax.Clear();
+            txtPriceFieldMax.Click();
+            txtPriceFieldMax.SendText(maxPrice.ToString());
+        }
     }
 }
