@@ -19,6 +19,8 @@ namespace Framework
 
         public bool IsDisplayed() => element.Displayed;
 
+        public bool IsEnabled() => element.Enabled;
+
         public void SendText(string text) => element.SendKeys(text);
 
         public Element FindElementByXpath(string xpath) => new(element.FindElement(By.XPath(xpath)));
