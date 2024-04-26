@@ -34,20 +34,25 @@ namespace AlloPageObjects
         public List<string> GetBooksNamesByGenre(string genre)
         {
             List<string> books = new List<string>();
-
             driver.WaitUntil(e =>
             {
-                books = driver.FindElementsByXpath("//div[contains(@class, 'BookItem_card')]//div[contains(@class, 'BookItem_genre')]")
-                    .ToList()
-                    .ConvertAll(e => e.GetText());
-                foreach (var el in books)
+                try
                 {
-                    if (!genre.Equals(el))
+                    books = driver.FindElementsByXpath("//div[contains(@class, 'BookItem_card')]//div[contains(@class, 'BookItem_genre')]")
+                        .ToList()
+                        .ConvertAll(e => e.GetText());
+                    foreach (var el in books)
                     {
-                        return false;
+                        if (!genre.Equals(el))
+                        {
+                            return false;
+                        }
                     }
+                    return true;
+                } catch (StaleElementReferenceException ex)
+                {
+                    return false;
                 }
-                return true;
             });
             return books;
         }
@@ -57,17 +62,23 @@ namespace AlloPageObjects
             List<string> books = new List<string>();
             driver.WaitUntil(e =>
             {
-                books = driver.FindElementsByXpath("//div[contains(@class, 'BookItem_caption')]/child::*[@data-testid='PersonOutlineOutlinedIcon']/following-sibling::*")
-                .ToList()
-                .ConvertAll(e => e.GetText());
-                foreach (var el in books)
+                try
                 {
-                    if (!author.Equals(el))
+                    books = driver.FindElementsByXpath("//div[contains(@class, 'BookItem_caption')]/child::*[@data-testid='PersonOutlineOutlinedIcon']/following-sibling::*")
+                        .ToList()
+                        .ConvertAll(e => e.GetText());
+                    foreach (var el in books)
                     {
-                        return false;
+                        if (!author.Equals(el))
+                        {
+                            return false;
+                        }
                     }
+                    return true;
+                } catch (StaleElementReferenceException ex)
+                {
+                    return false;
                 }
-                return true;
             });
             return books;
         }

@@ -29,5 +29,18 @@
   "filterName2": "Популярні фільтри",
   "filterItem2": "Є в магазинах міста",
   "minPrice": "20000",
-  "maxPrice": "50000"
+  "maxPrice": "50000",
+  "productTitle": "Apple iPhone 15 Pro Max 256GB Black Titanium (MU773)",
+  "productTitle2": "Apple iPhone 15 Pro Max 256GB Blue Titanium (MU7A3)",
+  "productService1": "Базове налаштування смартфона/планшета",
+  "productService2": "Створення облікового запису",
+  "headerLink": "Акції",
+  "promoCategory": "Безкоштовна доставка",
+  "footerLink4": "Подарункові сертифікати",
+  "certificatesNumber": "0000000000000",
+  "certificateConfirmationErrorMessage": "Сертифікат 000-000-000-0000 не знайдено.",
+  "emptyCartMessage": "Ваш кошик порожній.",
+  "productColor": "Blue",
+  "productNameToBuyInShop": "Apple iPhone 15 Pro Max 256GB White Titanium (MU783)",
+  "tooltipMessage": "У мережі магазинів \"Алло\" представлені товари від офіційного дистриб'ютора техніки Apple в Україні. Купуючи техніку Apple в магазинах мережі \"Алло\" ви отримуєте:"
 }

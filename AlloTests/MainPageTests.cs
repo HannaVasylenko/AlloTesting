@@ -40,7 +40,7 @@ namespace AlloTests
             StringAssert.AreEqualIgnoringCase(emailErrorMessage, initialPage.GetEmailErrorMessage(), $"The error message {emailErrorMessage} is not displayed");
         }
 
-        [Test]
+        [Test(Description = "The Test FAILS when the Instagram page does not load when you click the Reload button")]
         public void VerifyTransitionToSocialMediaPages()
         {
             var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
@@ -51,14 +51,14 @@ namespace AlloTests
             InitialPage initialPage = new InitialPage(driver);
             initialPage.GoToSocialMediaPages("facebook");
             driver.SwitchToTab(1);
-            string facebook = initialPage.GetFacebookAccountName();
+            string facebookName = initialPage.GetFacebookAccountName();
             driver.SwitchToTab(0);
             initialPage.GoToSocialMediaPages("instagram");
             driver.SwitchToTab(2);
-            string instagram = initialPage.GetInstagramAccountName();
+            string instagramName = initialPage.GetInstagramAccountName();
             
-            StringAssert.AreEqualIgnoringCase(websiteNameUkr, facebook, "A different page is displayed");
-            StringAssert.AreEqualIgnoringCase(websiteNameEng, instagram, "A different page is displayed");
+            StringAssert.AreEqualIgnoringCase(websiteNameUkr, facebookName, "A different page is displayed");
+            StringAssert.AreEqualIgnoringCase(websiteNameEng, instagramName, "A different page is displayed");
         }
 
         [Test]
@@ -125,6 +125,7 @@ namespace AlloTests
             initialPage.ClickOnBtnShowMoreProducts();
             int updatedQuantityOfProducts = initialPage.GetQuantityOfProducts();
             int expectedQuantityOfProducts = quantityOfProducts + (updatedQuantityOfProducts - quantityOfProducts);
+            
             Assert.That(updatedQuantityOfProducts, Is.EqualTo(expectedQuantityOfProducts), "The wrong number of products is displayed");
         }
     }

@@ -19,6 +19,8 @@ namespace Framework
 
         public bool IsDisplayed() => element.Displayed;
 
+        public bool IsSelected() => element.Selected;
+
         public bool IsEnabled() => element.Enabled;
 
         public void SendText(string text) => element.SendKeys(text);

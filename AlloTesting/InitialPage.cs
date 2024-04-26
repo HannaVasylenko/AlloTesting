@@ -14,12 +14,6 @@ namespace AlloPageObjects
     {
         public InitialPage(Driver driver) : base(driver) {}
 
-        private Element txtPhoneNumber => driver.FindElementByXpath("//div[@class='a-input']");
-
-        private Element btnAddMoreProducts => driver.FindElementByXpath("//div[@data-products-type='top']//button[@class='h-pl__more-button']");
-
-        private List<Element> productList => driver.FindElementsByXpath("//div[@data-products-type='top']//div[@class='h-pc']");
-
         public void InputDataInSearchField (string text)
         {
             Element txtSearchField = driver.FindElementByXpath("//input[@id='search-form__input']");
@@ -81,6 +75,7 @@ namespace AlloPageObjects
         {
             Element txtActualLocation = driver.FindElementByXpath("//span[@class='mh-loc__label']");
             driver.WaitUntil(e => txtActualLocation.IsDisplayed());
+            
             return txtActualLocation.GetText();
         }
 
@@ -106,6 +101,6 @@ namespace AlloPageObjects
 
         public int GetQuantityOfProducts() => driver.FindElementsByXpath("//div[@data-products-type='top']/div[@class='h-products__list h-pl']/div[@class='h-pc']/div[@class='h-pc__content']/a").Count;
 
-        public void SelectFooterLink(string link) => driver.FindElementByXpath($"//a[contains(text(), '{link}')]").Click();
+        public void SelectFooterLink(string link) => driver.FindElementByXpath($"//div[@class='footer__main footer__wrap']//a[contains(text(), '{link}')]").Click();
     }
 }

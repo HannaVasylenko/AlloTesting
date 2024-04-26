@@ -23,6 +23,11 @@ namespace AlloPageObjects
             driver.WaitUntil(e => !defaultCity.Equals(GetPageTitle()));
         }
 
-        public string GetPageTitle() => driver.FindElementByXpath("//h2[@class='offline-store__city']").GetText();
+        public string GetPageTitle()
+        {
+            Element shopsMap = driver.FindElementByXpath("//div[@class='offline-stores-map-container']");
+            driver.WaitUntil(e => shopsMap.IsDisplayed());
+            return driver.FindElementByXpath("//h2[@class='offline-store__city']").GetText();
+        }
     }
 }

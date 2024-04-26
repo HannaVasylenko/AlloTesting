@@ -25,6 +25,8 @@ namespace Framework
 
         public void SwitchToDefaultPage() => driver.SwitchTo().DefaultContent();
 
+        public void GoBackToPreviousPage() => driver.Navigate().Back();
+
         public void MaximizeWindow() => driver.Manage().Window.Maximize();
 
         public Element FindElementByXpath(string xpath) => new(WaitUntilWebElementExists(By.XPath(xpath)));
@@ -58,6 +60,12 @@ namespace Framework
         {
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(seconds));
             return wait.Until(e => driver.FindElement(by));
+        }
+
+        public void ExecuteJsCommand(string command)
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript(command);
         }
     }
 }
