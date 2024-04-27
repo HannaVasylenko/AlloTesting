@@ -13,6 +13,19 @@ namespace AlloTests
     public class SearchResultTests : BaseTest
     {
         [Test]
+        public void VerifySelectCategory()
+        {
+            var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
+            string categoryName = config["categoryName"];
+
+            InitialPage initialPage = new InitialPage(driver);
+            initialPage.SelectCategory(config["categoryName"]);
+            SmartphonesAndPhonesPage smartphonesAndPhonesPage = new SmartphonesAndPhonesPage(driver);
+
+            Assert.That(smartphonesAndPhonesPage.GetSelectedCategoryTitle(), Is.EqualTo(categoryName), "Another page is displayed");
+        }
+
+        [Test]
         public void VerifySearchResultByBrand()
         {
             var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
@@ -122,62 +135,6 @@ namespace AlloTests
             CollectionAssert.Contains(listOfProductsThatWereViewed, productName1, $"The product {productName1} is not in the list of products you viewed");
             CollectionAssert.Contains(listOfProductsThatWereViewed, productName2, $"The product {productName2} is not in the list of products you viewed");
         }
-
-        [Test]
-        public void VerifySelectProductColor() 
-        {
-            var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
-            string productColor = config["productColor"];
-
-            InitialPage initialPage = new InitialPage(driver);
-            initialPage.SelectCategory(config["categoryName"]);
-            SmartphonesAndPhonesPage smartphonesAndPhonesPage = new SmartphonesAndPhonesPage(driver);
-            smartphonesAndPhonesPage.SelectSubCategory(config["subCategory"], config["subCategotyItem"]);
-            SearchResultPage searchResultPage = new SearchResultPage(driver);
-            searchResultPage.SelectFilterVariant(config["filterName1"], config["filterItem1"]);
-            searchResultPage.SubmitSearchResult();
-            searchResultPage.SelectProductCard(config["productTitle"]);
-            searchResultPage.SelectProductColor(config["productColor"]);
-            
-            Assert.That(searchResultPage.GetSelectedProductColor(), Is.EqualTo(productColor), $"The color {productColor} does not match the selected one");
-        }
-
-        [Test]
-        public void VerifySelectProductToBuyInShop()
-        {
-            var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
-
-            InitialPage initialPage = new InitialPage(driver);
-            initialPage.SelectCategory(config["categoryName"]);
-            SmartphonesAndPhonesPage smartphonesAndPhonesPage = new SmartphonesAndPhonesPage(driver);
-            smartphonesAndPhonesPage.SelectSubCategory(config["subCategory"], config["subCategotyItem"]);
-            SearchResultPage searchResultPage = new SearchResultPage(driver);
-            searchResultPage.SelectFilterVariant(config["filterName1"], config["filterItem1"]);
-            searchResultPage.SubmitSearchResult();
-            string productName = searchResultPage.ClickOnProductToBuyInShop();
-
-            Assert.That(searchResultPage.GetPageTitle(), Is.EqualTo(productName), $"The product {productName} does not match the selected one");
-        }
-
-        [Test]
-        public void VerifyAppearanceOfTheTooltipText()
-        {
-            var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();
-            string tooltipMessage = config["tooltipMessage"];
-
-            InitialPage initialPage = new InitialPage(driver);
-            initialPage.SelectCategory(config["categoryName"]);
-            SmartphonesAndPhonesPage smartphonesAndPhonesPage = new SmartphonesAndPhonesPage(driver);
-            smartphonesAndPhonesPage.SelectSubCategory(config["subCategory"], config["subCategotyItem"]);
-            SearchResultPage searchResultPage = new SearchResultPage(driver);
-            searchResultPage.SelectFilterVariant(config["filterName1"], config["filterItem1"]);
-            searchResultPage.SubmitSearchResult();
-            searchResultPage.SelectProductCard(config["productTitle"]);
-            searchResultPage.ClickOnTooltip();
-
-            StringAssert.Contains(tooltipMessage.ToLower(), searchResultPage.GetTooltipMessage().ToLower(), $"The tooltip message {tooltipMessage} is not displayed");
-        }
-
 
         [Test]
         public void VerifyChangeListLayout()

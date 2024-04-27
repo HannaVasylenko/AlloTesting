@@ -12,8 +12,8 @@ namespace AlloPageObjects
     {
         public SmartphonesAndPhonesPage(Driver webDriver) : base(webDriver) {}
 
-        public string GetPageTitle() => driver.FindElementByXpath("//h1").GetText();
+        public string GetSelectedCategoryTitle() => driver.FindElementByXpath("//h1").GetText();
 
-        public void SelectSubCategory(string subCategory, string subCategotyItem) => driver.FindElementByXpath($"//h3[contains(text(), '{subCategory}')]/ancestor::div[@class='portal__navigation']//li[@class='portal-category__item']/a[text()='{subCategotyItem}']").Click();
+        public void SelectSubCategory(string subCategory, string subCategoryItem) => driver.FindElementByXpath($"//h3[contains(text(), '{subCategory}')]/ancestor::div[@class='portal__navigation']//li[@class='portal-category__item']/a[text()='{subCategoryItem}']").Click();
     }
 }

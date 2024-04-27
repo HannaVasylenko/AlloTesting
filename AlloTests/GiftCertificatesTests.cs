@@ -18,7 +18,7 @@ namespace AlloTests
             string certificateConfirmationErrorMessage = config["certificateConfirmationErrorMessage"];
 
             InitialPage initialPage = new InitialPage(driver);
-            initialPage.SelectFooterLink(config["footerLink4"]);
+            initialPage.footer.SelectFooterLink(config["footerLink4"]);
             GiftCertificatesPage giftCertificatesPage = new GiftCertificatesPage(driver);
             giftCertificatesPage.InputDataInCertificatesNumberField(config["certificatesNumber"]);
 

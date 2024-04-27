@@ -18,6 +18,6 @@ namespace AlloPageObjects
 
         public void SelectVacancy(string vacancyName) => driver.FindElementByXpath($"//div[@class='awsm-job-listings awsm-row awsm-grid-col-3']/div//h2[contains(text(), '{vacancyName}')]");
 
-        public string GetPageTitle() => driver.FindElementByXpath("//h1").GetText();
+        public string GetSelectedVacancyName() => driver.FindElementByXpath("//h1").GetText();
     }
 }

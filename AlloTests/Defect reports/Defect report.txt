@@ -1,0 +1,27 @@
+﻿04.26.2024
+
+ID - 1
+
+Severity - Major
+Priority - High
+
+Summary: The Instagram page is not displayed when you click Reload page 
+after clicking on the social network icon on the Hello home page
+
+Pre-conditions:  Go to https://allo.ua/
+
+Steps:
+
+1. Go to the footer of the page
+2. Click on the Facebook icon
+3. Go to the tab of the Home page Hello
+4. Click on the Instagram icon
+5. Click the Reload page button
+
+Actual result: The Instagram page is not displayed
+
+Expected result: The Instagram page is displayed
+
+Environment: Chrome Version 124.0.6367.92 (Official Build) (64-bit) 
+
+Type of Bug: Functional

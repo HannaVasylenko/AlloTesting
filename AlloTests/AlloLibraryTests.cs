@@ -21,7 +21,7 @@ namespace AlloTests
 
 
             InitialPage initialPage = new InitialPage(driver);
-            initialPage.SelectFooterLink(config["footerLink3"]);
+            initialPage.footer.SelectFooterLink(config["footerLink3"]);
             AlloLibraryPage alloLibraryPage = new AlloLibraryPage(driver);
 
             alloLibraryPage.SelectFilterByVariant(config["filterByGenre"]);

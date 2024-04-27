@@ -14,9 +14,15 @@ namespace AlloPageObjects
 {
     public class SearchResultPage : BasePage
     {
+        public Cart cart => new Cart(driver);
+
         public SearchResultPage(Driver webDriver) : base(webDriver) { }
 
         private int clickCount = 0;
+
+        public List<string> GetProductNames() => driver.FindElementsByXpath("//div[@class='products-layout__container products-layout--grid']//div[@class='product-card__content']/a")
+                    .ToList()
+                    .ConvertAll(e => e.GetAttribute("title"));
 
         public void SelectFilterVariant(string filterName, string filterItem) => driver.FindElementByXpath($"//h3[text()='{filterName}']/ancestor::section[@class='f-content']//a[contains(text(), '{filterItem}')]").Click();
 
@@ -170,32 +176,6 @@ namespace AlloPageObjects
                     .ConvertAll(e => e.GetText());
         }
 
-        public string GetSelectedProductColor() => driver.FindElementByXpath("//div[@class='p-attributes__content p-attributes__item is-color']//span[@class='title__label']").GetText();
-
-        public void SelectProductColor(string productColor)
-        {
-            string colorNameBeforeSelecting = driver.FindElementByXpath("//div[@class='p-attributes__content p-attributes__item is-color']//span[@class='title__label']").GetText();
-            Console.WriteLine("color: " + colorNameBeforeSelecting);
-            Element btnColor = driver.FindElementByXpath($"//div[@class='p-attributes p-dynamic__component']//li[@class='p-attributes-color__item']/a[contains(text(),'{productColor}')]");
-            driver.WaitUntil(e =>
-            {
-                try
-                {
-                    btnColor.Click();
-                    return false;
-                }
-                catch (Exception ex)
-                {
-                    return true;
-                }
-            });
-            driver.WaitUntil(e => {
-                string colorNameAfterSelecting = driver.FindElementByXpath("//div[@class='p-attributes__content p-attributes__item is-color']//span[@class='title__label']").GetText();
-                Console.WriteLine("after: " + colorNameAfterSelecting);
-                return !colorNameBeforeSelecting.Equals(colorNameAfterSelecting) && colorNameAfterSelecting != "";
-            });
-        }
-
         public void SelectBuyProductInShop(string productName) => driver.FindElementByXpath($"//button[@title='Забрати в магазині Алло']/ancestor::div[@class='product-card__content']/a[@title='{productName}']").Click();
 
         public string ClickOnProductToBuyInShop()
@@ -219,20 +199,6 @@ namespace AlloPageObjects
         }
 
         public void CloseModalWindow() => driver.FindElementByXpath("//div[@class='v-modal__close-btn']").Click();
-
-        public string GetPageTitle()
-        {
-            Element mapWindow = driver.FindElementByXpath("//div[@class='v-modal__cmp map_modal_container map_modal_container--with-stores']/div[@class='v-modal__close-btn']/child::*");
-            if (driver.IsElementExists(By.XPath("//div[@class='v-modal__cmp map_modal_container map_modal_container--with-stores']/div[@class='v-modal__close-btn']/child::*")))
-            {
-                mapWindow.Click();
-            }
-            return driver.FindElementByXpath("//h1").GetText();
-        }
-
-        public void ClickOnTooltip() => driver.FindElementByXpath("//div[@class='v-tooltip']//i").Click();
-
-        public string GetTooltipMessage() => driver.FindElementByXpath("//div[@class='v-tooltip__content']//p[@class='s-tooltip-content__text']").GetText();
 
         public bool GetListLayout() => driver.IsElementExists(By.XPath("//div[@class='v-catalog__products']//div[@class='products-layout__container products-layout--list']"));
 

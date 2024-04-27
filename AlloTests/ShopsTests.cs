@@ -19,11 +19,11 @@ namespace AlloTests
             string cityName = config["city"];
 
             InitialPage initialPage = new InitialPage(driver);
-            initialPage.SelectFooterLink(config["footerLink2"]);
+            initialPage.footer.SelectFooterLink(config["footerLink2"]);
             ShopsPage shopsPage = new ShopsPage(driver);
             shopsPage.InputDataInSearchShopsField(config["city"]);
             
-            StringAssert.Contains(shopsPage.GetPageTitle().ToLower(), cityName.ToLower(), "Another city is selected");
+            StringAssert.Contains(shopsPage.GetSelectedCityName().ToLower(), cityName.ToLower(), "Another city is selected");
         }
     }
 }

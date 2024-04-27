@@ -15,19 +15,13 @@ namespace AlloPageObjects
 
         public void InputDataInSearchShopsField(string location)
         {
-            Element shopsLocationTitle = driver.FindElementByXpath("//h2[@class='offline-store__city']");
+            string defaultCity = GetSelectedCityName();
             Element txtShopsLocation = driver.FindElementByXpath("//input[@id='city']");
             txtShopsLocation.Click();
             txtShopsLocation.SendText(location);
-            string defaultCity = GetPageTitle();
-            driver.WaitUntil(e => !defaultCity.Equals(GetPageTitle()));
+            driver.WaitUntil(e => !defaultCity.Equals(GetSelectedCityName()));
         }
 
-        public string GetPageTitle()
-        {
-            Element shopsMap = driver.FindElementByXpath("//div[@class='offline-stores-map-container']");
-            driver.WaitUntil(e => shopsMap.IsDisplayed());
-            return driver.FindElementByXpath("//h2[@class='offline-store__city']").GetText();
-        }
+        public string GetSelectedCityName() => driver.FindElementByXpath("//h2[@class='offline-store__city']").GetText();
     }
 }
