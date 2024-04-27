@@ -1,20 +1,16 @@
 ﻿using AlloTesting;
 using Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using OpenQA.Selenium;
 
 namespace AlloPageObjects
 {
     public class PromotionsPage : BasePage
     {
-        public PromotionsPage(Driver webDriver) : base(webDriver) {}
+        public PromotionsPage(Driver webDriver) : base(webDriver) { }
 
         public void SelectPromoCategory(string link)
         {
-            List <string> promotionsList = GetPromotionList();
+            List<string> promotionsList = GetPromotionList();
             driver.FindElementByXpath($"//div[@class='promo-list__categories']//span[text()='{link}']").Click();
             driver.WaitUntil(driver => !GetPromotionList().SequenceEqual(promotionsList));
         }
