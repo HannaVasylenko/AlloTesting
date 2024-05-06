@@ -35,7 +35,7 @@ namespace AlloTests
             StringAssert.AreEqualIgnoringCase(emailErrorMessage, initialPage.footer.GetEmailErrorMessage(), $"The error message {emailErrorMessage} is not displayed");
         }
 
-        [Test(Description = "The TEST FAILS when the Instagram page does not load when you click the Reload button")]
+        [Test]
         public void VerifyTransitionToSocialMediaPages()
         {
             var config = new ConfigurationBuilder().AddJsonFile("appconfig.json").Build();

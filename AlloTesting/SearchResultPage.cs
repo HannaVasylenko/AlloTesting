@@ -102,14 +102,17 @@ namespace AlloPageObjects
                 selectedProductsToCompare = int.Parse(driver.FindElementByXpath("//span[@class='c-counter__text']").GetText());
             }
 
-            Element btnAddProductToCompare = driver.FindElementByXpath($"//div[@class='product-card__content']/a[@title='{productName}']/..//div[@class='actions__container']//button[contains(@class, 'compare')]");
             driver.WaitUntil(e => {
-                if (btnAddProductToCompare.GetAttribute("class").Contains("active"))
-                {
-                    return true;
-                }
+                Element btnAddProductToCompare = driver.FindElementByXpath($"//div[@class='product-card__content']/a[@title='{productName}']/..//div[@class='actions__container']//button[contains(@class, 'compare')]");
                 btnAddProductToCompare.Click();
-                return false;
+                try {
+                    driver.WaitUntil(a => btnAddProductToCompare.GetAttribute("class").Contains("loading"), 4);
+                }
+                catch(WebDriverTimeoutException ex)
+                {
+                    return false;
+                }
+                return true;
             });
             driver.WaitUntil(e => selectedProductsToCompare != int.Parse(driver.FindElementByXpath("//span[@class='c-counter__text']").GetText()));
 
@@ -178,9 +181,12 @@ namespace AlloPageObjects
                 try
                 {
                     List<Element> productsToBuyInShop = driver.FindElementsByXpath("//button[@title='Забрати в магазині Алло']/ancestor::div[@class='product-card']");
-                    Element firstProduct = productsToBuyInShop.First();
-                    productTitle = firstProduct.FindElementByXpath("./div[@class='product-card__content']/a").GetText();
-                    firstProduct.FindElementByXpath(".//button[@title='Забрати в магазині Алло']").Click();
+                    if (productsToBuyInShop.Count > 0)
+                    {
+                        Element firstProduct = productsToBuyInShop[0];
+                        productTitle = firstProduct.FindElementByXpath("./div[@class='product-card__content']/a").GetText();
+                        firstProduct.FindElementByXpath(".//button[@title='Забрати в магазині Алло']").Click();
+                    }
                     return true;
                 } catch (StaleElementReferenceException ex)
                 {

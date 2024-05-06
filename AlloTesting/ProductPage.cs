@@ -34,16 +34,25 @@ namespace AlloPageObjects
 
         public string GetPageTitleAfterClickingOnProduct()
         {
-            Element mapWindow = driver.FindElementByXpath("//div[@class='v-modal__cmp map_modal_container map_modal_container--with-stores']/div[@class='v-modal__close-btn']/child::*");
-            if (driver.IsElementExists(By.XPath("//div[@class='v-modal__cmp map_modal_container map_modal_container--with-stores']/div[@class='v-modal__close-btn']/child::*")))
+            try
             {
-                mapWindow.Click();
+                driver.WaitUntil(e => {
+                    if (driver.IsElementExists(By.XPath("//div[@class='v-modal__cmp map_modal_container map_modal_container--with-stores']/div[@class='v-modal__close-btn']/child::*")))
+                    {
+                        driver.FindElementByXpath("//div[@class='v-modal__cmp map_modal_container map_modal_container--with-stores']/div[@class='v-modal__close-btn']/child::*").Click();
+                        return true;
+                    }
+                    return false;
+                });
+            } catch (WebDriverTimeoutException ex)
+            {
             }
+
             return driver.FindElementByXpath("//h1").GetText();
         }
 
         public void ClickOnTooltip() => driver.FindElementByXpath("//div[@class='v-tooltip']//i").Click();
 
-        public string GetTooltipMessage() => driver.FindElementByXpath("//div[@class='v-tooltip__content']//p[@class='s-tooltip-content__text']").GetText();
+        public string GetTooltipMessage() => driver.FindElementByXpath("//div[@class='v-tooltip__scroll']//p").GetText();
     }
 }
