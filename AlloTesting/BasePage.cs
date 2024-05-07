@@ -6,9 +6,6 @@ namespace AlloTesting
     {
         protected static Driver driver;
 
-        public BasePage(Driver webDriver) 
-        {
-            driver = webDriver;
-        }
+        public BasePage(Driver webDriver) => driver = webDriver;
     }
 }
